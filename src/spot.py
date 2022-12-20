@@ -19,6 +19,6 @@ class Spot:
     return self._piece
   
   @piece.setter
-  def setPiece(self, piece: Piece) -> None:
+  def piece(self, piece: Piece) -> None:
     self._piece = piece
 
