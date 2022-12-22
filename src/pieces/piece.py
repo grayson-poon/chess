@@ -1,3 +1,12 @@
+from __future__ import annotations
+
+import sys
+sys.path.append("../")
+
+import typing
+if typing.TYPE_CHECKING:
+	from spot import Spot
+
 class Piece:
 	def __init__(self, name: str, color: str) -> None:
 		self._name = name
@@ -40,3 +49,15 @@ class Piece:
 
 	def willBeInbounds(self, y: int, x: int) -> bool:
 		return x >= 0 and x < 8 and y >= 0 and y < 8
+
+	# tentative method to use in each sub-piece to filter potential_coords
+	def filterCoords(self, start: Spot, board: list[list[Spot]], potential_coords: list[int]) -> list[Spot]:
+		potential_spots: list[Spot] = []
+
+		for [y, x] in potential_coords:
+			if self.willBeInbounds(y, x):
+				end: Spot = board[y][x]
+
+				if self.canMove(start, end):
+					potential_spots.append(end)
+		return potential_spots
