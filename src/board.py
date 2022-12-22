@@ -1,6 +1,11 @@
-from piece import Piece
+import sys
+sys.path.append("../")
+sys.path.append("./pieces")
+
 from spot import Spot
-from constants import colors as color, piece_names as name
+from pieces.piece import Piece
+from pieces.pawn import Pawn
+from constants import colors, piece_names
 
 class Board:
   def __init__(self) -> None:
@@ -16,37 +21,39 @@ class Board:
 
   def resetBoard(self) -> None:
     # create rooks and set on board
-    self._board[0][0] = Spot(0, 0, Piece(name.ROOK, color.BLACK))
-    self._board[0][7] = Spot(0, 7, Piece(name.ROOK, color.BLACK))
-    self._board[7][0] = Spot(7, 0, Piece(name.ROOK, color.WHITE))
-    self._board[7][7] = Spot(7, 7, Piece(name.ROOK, color.WHITE))
+
+    # ------- REPLACE PIECE WITH ACTUAL child class pieces
+    self._board[0][0] = Spot(0, 0, Piece(piece_names.ROOK, colors.BLACK))
+    self._board[0][7] = Spot(0, 7, Piece(piece_names.ROOK, colors.BLACK))
+    self._board[7][0] = Spot(7, 0, Piece(piece_names.ROOK, colors.WHITE))
+    self._board[7][7] = Spot(7, 7, Piece(piece_names.ROOK, colors.WHITE))
 
     # create knights and set on board
-    self._board[0][1] = Spot(0, 1, Piece(name.KNIGHT, color.BLACK))
-    self._board[0][6] = Spot(0, 6, Piece(name.KNIGHT, color.BLACK))
-    self._board[7][1] = Spot(7, 1, Piece(name.KNIGHT, color.WHITE))
-    self._board[7][6] = Spot(7, 6, Piece(name.KNIGHT, color.WHITE))
+    self._board[0][1] = Spot(0, 1, Piece(piece_names.KNIGHT, colors.BLACK))
+    self._board[0][6] = Spot(0, 6, Piece(piece_names.KNIGHT, colors.BLACK))
+    self._board[7][1] = Spot(7, 1, Piece(piece_names.KNIGHT, colors.WHITE))
+    self._board[7][6] = Spot(7, 6, Piece(piece_names.KNIGHT, colors.WHITE))
 
     # create bishops and set on board
-    self._board[0][2] = Spot(0, 2, Piece(name.BISHOP, color.BLACK))
-    self._board[0][5] = Spot(0, 5, Piece(name.BISHOP, color.BLACK))
-    self._board[7][2] = Spot(7, 2, Piece(name.BISHOP, color.WHITE))
-    self._board[7][5] = Spot(7, 5, Piece(name.BISHOP, color.WHITE))
+    self._board[0][2] = Spot(0, 2, Piece(piece_names.BISHOP, colors.BLACK))
+    self._board[0][5] = Spot(0, 5, Piece(piece_names.BISHOP, colors.BLACK))
+    self._board[7][2] = Spot(7, 2, Piece(piece_names.BISHOP, colors.WHITE))
+    self._board[7][5] = Spot(7, 5, Piece(piece_names.BISHOP, colors.WHITE))
 
     # create queens and set on board
-    self._board[0][3] = Spot(0, 3, Piece(name.QUEEN, color.BLACK))
-    self._board[7][3] = Spot(7, 3, Piece(name.QUEEN, color.BLACK))
+    self._board[0][3] = Spot(0, 3, Piece(piece_names.QUEEN, colors.BLACK))
+    self._board[7][3] = Spot(7, 3, Piece(piece_names.QUEEN, colors.BLACK))
 
     # create kings and set on board
-    self._board[0][4] = Spot(0, 4, Piece(name.KING, color.BLACK))
-    self._board[7][4] = Spot(7, 3, Piece(name.KING, color.WHITE))
+    self._board[0][4] = Spot(0, 4, Piece(piece_names.KING, colors.BLACK))
+    self._board[7][4] = Spot(7, 3, Piece(piece_names.KING, colors.WHITE))
 
     # create pawns and set on board
     for i in range(0, 8):
-      self._board[1][i] = Spot(1, i, Piece(name.PAWN, color.BLACK))
-      self._board[6][i] = Spot(6, i, Piece(name.PAWN, color.WHITE))
+      self._board[1][i] = Spot(1, i, Pawn(piece_names.PAWN, colors.BLACK))
+      self._board[6][i] = Spot(6, i, Pawn(piece_names.PAWN, colors.WHITE))
     
     # create empty spots and set on board
     for y in range(2, 6):
       for x in range(0, 8):
-        self._board[y][x] = Spot(x, y, None)
+        self._board[y][x] = Spot(y, x, None)
